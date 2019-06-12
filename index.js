@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Enable Vue.js devtools
 // @namespace    http://tampermonkey.net/
-// @version      0.0.4
+// @version      0.1.0
 // @description  强制启用 Vue.js devtools 开发者工具
 // @author       楼教主
 // @match        *://*/*
@@ -18,23 +18,27 @@
 
   let isActivated = false;
 
+  const getConstructor = el => {
+    const Vue = ((el || 0).__vue__ || 0).constructor;
+    if (Vue) {
+      return Vue.super ? Vue.super : Vue;
+    }
+  };
+
   const getVue = () => {
     let Vue = window.Vue;
 
     if (!Vue) {
-      const vm = document.getElementById('app').__vue__;
-      if (vm) {
-        Vue = vm.constructor.super ? vm.constructor.super : vm.constructor;
-      }
+      Vue = getConstructor(document.getElementById('app'));
     }
 
     if (!Vue) {
       // 遍历 dom 读取可能的 vue 实例
-      return;
+      Vue = getConstructor([...document.body.querySelectorAll('div')].find(el => el.__vue__));
     }
 
     return Vue;
-  }
+  };
 
   const enableDevtools = () => {
     if (isActivated) {
@@ -51,7 +55,7 @@
 
     Vue.config.devtools = true;
     window.__VUE_DEVTOOLS_GLOBAL_HOOK__.emit('init', Vue);
-  }
+  };
 
   enableDevtools();
   setTimeout(enableDevtools, 2000);
