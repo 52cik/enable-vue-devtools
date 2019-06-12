@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Enable Vue.js devtools
 // @namespace    http://tampermonkey.net/
-// @version      0.1.1
+// @version      0.1.2
 // @description  强制启用 Vue.js devtools 开发者工具
 // @author       楼教主
 // @match        *://*/*
@@ -57,6 +57,6 @@
     window.__VUE_DEVTOOLS_GLOBAL_HOOK__.emit('init', Vue);
   };
 
-  enableDevtools();
+  // enableDevtools();
   setTimeout(enableDevtools, 2000);
 })();
