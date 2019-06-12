@@ -4,7 +4,7 @@ Enable Vue.js devtools
 
 强制启用 Vue.js devtools 开发者工具
 
-油猴脚本，复制下面代码到 `Tampermonkey` 插件中即可。支持自动更新
+复制下面代码到 `Tampermonkey` 插件中，保存后点击更新即可。
 
 ```js
 // ==UserScript==
