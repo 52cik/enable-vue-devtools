@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Enable Vue.js devtools
 // @namespace    http://tampermonkey.net/
-// @version      0.0.1
+// @version      0.0.2
 // @description  强制启用 Vue.js devtools 开发者工具
 // @author       楼教主
 // @match        *://*/*
@@ -19,7 +19,8 @@
   let Vue = window.Vue;
 
   if (!Vue) {
-    Vue = document.getElementById('app').__vue__.constructor.super;
+    const vm = document.getElementById('app').__vue__;
+    Vue = vm.constructor.super ? vm.constructor.super : vm.constructor;
   }
 
   if (!Vue) {
